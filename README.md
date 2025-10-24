@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # water_board_app
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# water-board-mobile-app
+>>>>>>> 9b8ef1d5a7cd9fbcddc142f9cdafe85fabacfe78
