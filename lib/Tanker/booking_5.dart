@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:water_board_app/Hot_offers.dart';
 
 class BookingScreen_five extends StatefulWidget {
   const BookingScreen_five({super.key});
@@ -136,7 +135,9 @@ class _BookingScreen_fiveState extends State<BookingScreen_five> {
                     fontSize: 16,
                     fontWeight: FontWeight.w400
                   ),),
-                  SizedBox(height: 140,),
+                  SizedBox(height: 30,),
+                  Image(image: AssetImage('assets/animations/success.gif'), height: 80, width: 140,),
+                  SizedBox(height: 30,),
                   Image(image: AssetImage('assets/tanker.png'), height: 80, width: 140,),
                   SizedBox(height: 10,),
                   Divider(

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:water_board_app/Hot_offers.dart';
-import 'package:water_board_app/Tanker/booking_2.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'booking_5.dart';
 
-class BookingScreen_one extends StatefulWidget {
-  const BookingScreen_one({super.key});
+class BookingScreen_four extends StatefulWidget {
+  const BookingScreen_four({super.key});
 
   @override
-  State<BookingScreen_one> createState() => _BookingScreen_oneState();
+  State<BookingScreen_four> createState() => _BookingScreen_fourState();
 }
 
-class _BookingScreen_oneState extends State<BookingScreen_one> {
+class _BookingScreen_fourState extends State<BookingScreen_four> {
 
-  // ADDED: Hover states for buttons
   bool _isBookHovered = false;
   bool _isViewHovered = false;
+
+  // For the map's initial view define a default central location.
+  final LatLng _center = const LatLng(31.5204, 74.3487); // Lahore, Pakistan
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 140,
+                  height: 130,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(40),
@@ -112,7 +115,63 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
+
+            Text('Delivery Location', 
+            style: TextStyle( color: Colors.black, fontSize: 15, fontWeight: FontWeight.w400),),
+            
+            SizedBox(height: 5),
+            Container(
+              height: 132,
+              margin: const EdgeInsets.symmetric(horizontal: 25),
+              decoration: BoxDecoration(
+                // borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                // Clamps the map content to the rounded corners
+                // borderRadius: BorderRadius.circular(20),
+                child: FlutterMap(
+                  options: MapOptions(
+                    initialCenter: _center, 
+                    initialZoom: 15.0, 
+                    interactionOptions: const InteractionOptions(
+                      flags: InteractiveFlag.all & ~InteractiveFlag.rotate, 
+                    ),
+                  ),
+                  children: [
+                    // Tile Layer using free OpenStreetMap tiles
+                    TileLayer(
+                      urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      userAgentPackageName: 'com.example.waterboardapp',
+                    ),
+                    // Marker Layer to add the red pin
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          width: 40.0,
+                          height: 40.0,
+                          point: _center, // Place the marker at the center
+                          child: const Icon(
+                            Icons.location_pin,
+                            color: Color.fromARGB(255, 230, 29, 29), 
+                            size: 40.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 8), 
 
             Stack(
               clipBehavior: Clip.none, 
@@ -138,30 +197,51 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // SizedBox(height: 5,),
                       Image.asset(
                         'assets/tanker.png',
                         width: 250,
-                        height: 120,
+                        height: 100,
                         fit: BoxFit.contain,
                       ),
-                      const SizedBox(height: 15),
+                      // const SizedBox(height: 5),
+                      Text('AD-3720', style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600
+                      ),
+                      ),
+                      SizedBox(height: 2),
+
+                      const Divider(
+                        color: Colors.black12,
+                        height: 20,
+                        thickness: 1,
+                        // indent: 16,
+                        // endIndent: 16,
+                      ),
+                      SizedBox(height: 3),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '1000 Liter',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black87,
-                            ),
+                          Row(
+                            children: [
+                              Icon(Icons.fire_truck_outlined, color: Colors.grey.withOpacity(0.7),weight: 5, size: 22,),
+                              Text(
+                                ' 4000 Liter',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                           Row(
                             children: [
                               Text(
-                                'Starts From  ',
+                                'Total Amount  ',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w300,
                                   fontSize: 13,
@@ -180,13 +260,19 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 35), // ADDED: Space for half-overlapping button
+                      SizedBox(height: 12,),
+                          Text('Estimated Delivery Time 1 Hour 20 minutes', style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400
+                          ),),
+                      const SizedBox(height: 20), 
                     ],
                   ),
                 ),
                 
                 Positioned(
-                  bottom: -25, // Position to overlap container
+                  bottom: -25,
                   left: 0,
                   right: 0,
                   child: Center(
@@ -194,29 +280,29 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                       onEnter: (_) => setState(() => _isBookHovered = true),
                       onExit: (_) => setState(() => _isBookHovered = false),
                       child: SizedBox(
-                        width: 240, // ADDED: Fixed width for button
+                        width: 240, 
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BookingScreen_two(),
+                          builder: (context) => BookingScreen_five(),
                         ),
                       );
                           },
                           style: ElevatedButton.styleFrom(
-                            // Color changes on hover
+
                             backgroundColor: _isBookHovered
                                 ? Color.fromARGB(255, 100, 150, 102)
                                 : Color.fromARGB(255, 129, 183, 131),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             elevation: 3,
                           ),
                           child: Text(
-                            'Book Your Tanker',
+                            'Confirm',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15, 
@@ -231,39 +317,35 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
               ],
             ),
             
-            // MODIFIED: Spacing for the overlapping button
             const SizedBox(height: 30),
             
-            // MODIFIED: View Previous Bookings button with hover effect
             Center(
               child: MouseRegion(
                 onEnter: (_) => setState(() => _isViewHovered = true),
                 onExit: (_) => setState(() => _isViewHovered = false),
                 child: SizedBox(
-                  width: 240, // ADDED: Same fixed width as first button
+                  width: 240, 
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      // MODIFIED: Color changes on hover
                       backgroundColor: _isViewHovered
                           ? Color.fromARGB(255, 200, 201, 200)
                           : Color.fromARGB(255, 226, 227, 226),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      // MODIFIED: Same padding as first button
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       elevation: 2,
                     ),
                     child: Text(
-                      'View Previous Bookings',
+                      'Pay Now',
                       style: TextStyle(
                         color: Colors.black54,
-                        fontSize: 15, // MODIFIED: Same font size as first button
+                        fontSize: 15, 
                         fontWeight: FontWeight.w600,
                       ),
-                      overflow: TextOverflow.ellipsis, // ADDED: Prevent text overflow
-                      maxLines: 1, // ADDED: Keep text in single line
+                      overflow: TextOverflow.ellipsis, 
+                      maxLines: 1, 
                     ),
                   ),
                 ),
