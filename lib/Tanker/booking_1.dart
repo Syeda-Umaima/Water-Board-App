@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:water_board_app/Hot_offers.dart';
-import 'Tanker/booking_1.dart';
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+class BookingScreen_one extends StatefulWidget {
+  const BookingScreen_one({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<BookingScreen_one> createState() => _BookingScreen_oneState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-final List<Map<String, dynamic>> services = [ 
-    {'image': 'assets/home/1.png', 'title': 'Tanker Booking', 'screen': (BuildContext context) => BookingScreen_one()}, 
-    {'image': 'assets/home/3.png', 'title': 'Bills Payment &\nDuplicate Bill', 'screen': (BuildContext context) => HomeScreen()},
-    {'image': 'assets/home/5.png', 'title': 'FAQs / Feedback', 'screen': (BuildContext context) => HomeScreen()}, 
-    {'image': 'assets/home/2.jpg', 'title': 'Report a Complaint', 'screen': (BuildContext context) => HomeScreen()}, 
-    {'image': 'assets/home/4.png', 'title': 'New Connection', 'screen': (BuildContext context) => HomeScreen()}, 
-    {'image': 'assets/home/6.png', 'title': 'ChatBot', 'screen': (BuildContext context) => HomeScreen()}, 
+class _BookingScreen_oneState extends State<BookingScreen_one> {
+  final List<Map<String, String>> services = [
+    {'image': 'assets/home/1.png', 'title': 'Tanker Booking'},
+    {'image': 'assets/home/3.png', 'title': 'Bills Payment &\nDuplicate Bill'},
+    {'image': 'assets/home/5.png', 'title': 'FAQs / Feedback'},
+    {'image': 'assets/home/2.jpg', 'title': 'Report a Complaint'},
+    {'image': 'assets/home/4.png', 'title': 'New Connection'},
+    {'image': 'assets/home/6.png', 'title': 'ChatBot'},
   ];
 
   final List<Map<String, dynamic>> hotOffers = [
@@ -23,7 +23,6 @@ final List<Map<String, dynamic>> services = [
       'logo': 'assets/cards/Mastercard-logo.png',
       'title': 'MasterCard Discount',
       'discount': '15% OFF',
-      // 'boxColor': Colors.orange,
       'bgColor': Colors.orange[50],
       'mainDescription': '15% discount with mastercard',
       'secondaryDescription': 'Lorem ipsum dolor sit am etet adip',
@@ -32,8 +31,7 @@ final List<Map<String, dynamic>> services = [
       'logo': 'assets/cards/visa-logo.png',
       'title': 'VISA Offer',
       'discount': '23% OFF',
-      // 'boxColor': Colors.amber,
-      'bgColor':  Color.fromARGB(255, 223, 227, 249),
+      'bgColor': Color.fromARGB(255, 223, 227, 249),
       'mainDescription': '23% discount with VISA',
       'secondaryDescription': 'Lorem ipsum dolor sit am etet adip',
     },
@@ -41,7 +39,6 @@ final List<Map<String, dynamic>> services = [
       'logo': 'assets/cards/hbl-logo.png',
       'title': 'HBL Payment Offer',
       'discount': '15% off',
-      // 'boxColor': Colors.green,
       'bgColor': Color.fromARGB(255, 203, 230, 206),
       'mainDescription': '15% discount with HBL Payment',
       'secondaryDescription': 'with mobile banking',
@@ -50,28 +47,23 @@ final List<Map<String, dynamic>> services = [
       'logo': 'assets/cards/tanker-booking-logo.jpg',
       'title': 'Tanker Booking Discount',
       'discount': '20% off',
-      // 'boxColor': Colors.blue,
       'bgColor': Color(0xFFE3F2FD),
       'mainDescription': '20% off Tanker Booking Discount',
       'secondaryDescription': 'first booking',
     },
   ];
 
+  // ADDED: Hover states for buttons
+  bool _isBookHovered = false;
+  bool _isViewHovered = false;
+
   // Method to build single service item
-  Widget _buildServiceItem(String image, String title, WidgetBuilder screenBuilder) {
+  Widget _buildServiceItem(String image, String title) {
     return Column(
       children: [
         Image.asset(image, height: 40, width: 50, fit: BoxFit.cover),
-        // const SizedBox(height: 2),
         TextButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: screenBuilder,
-              ),
-            );
-          },
+          onPressed: () {},
           child: Text(
             title,
             textAlign: TextAlign.center,
@@ -83,7 +75,7 @@ final List<Map<String, dynamic>> services = [
   }
 
   // Helper method to build a column of services with spacing between items
-  Widget _buildServiceColumn(List<Map<String, dynamic>> serviceList) {
+  Widget _buildServiceColumn(List<Map<String, String>> serviceList) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: List.generate(serviceList.length, (index) {
@@ -92,7 +84,6 @@ final List<Map<String, dynamic>> services = [
             _buildServiceItem(
               serviceList[index]['image']!,
               serviceList[index]['title']!,
-              serviceList[index]['screen'],
             ),
             if (index < serviceList.length - 1) const SizedBox(height: 4),
           ],
@@ -119,7 +110,6 @@ final List<Map<String, dynamic>> services = [
       ),
       child: Row(
         children: [
-          // Left side
           Container(
             width: 110,
             decoration: BoxDecoration(
@@ -147,8 +137,6 @@ final List<Map<String, dynamic>> services = [
               ],
             ),
           ),
-
-          // Right side - Text descriptions on white background
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -156,7 +144,6 @@ final List<Map<String, dynamic>> services = [
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Main description
                   Text(
                     offer['mainDescription'],
                     style: const TextStyle(
@@ -168,7 +155,6 @@ final List<Map<String, dynamic>> services = [
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
-                  // Secondary description
                   Text(
                     offer['secondaryDescription'],
                     style: TextStyle(
@@ -222,12 +208,7 @@ final List<Map<String, dynamic>> services = [
                         end: Alignment.topRight,
                         colors: [
                           const Color.fromARGB(255, 9, 23, 62).withOpacity(0.1),
-                          const Color.fromARGB(
-                            0,
-                            249,
-                            247,
-                            247,
-                          ).withOpacity(0.4),
+                          const Color.fromARGB(0, 249, 247, 247).withOpacity(0.4),
                         ],
                       ),
                     ),
@@ -245,7 +226,7 @@ final List<Map<String, dynamic>> services = [
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Welcome',
+                              'Tanker Booking',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -304,57 +285,165 @@ final List<Map<String, dynamic>> services = [
               ],
             ),
             const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Text(
-                'Our Services',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 17,
-                ),
-              ),
-            ),
 
-            const SizedBox(height: 5),
-
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              padding: const EdgeInsets.only(left: 14, right: 14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  width: 0.2,
-                  color: Colors.black.withOpacity(0.3),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildServiceColumn(
-                        services.sublist(0, 3),
-                      ), // Left column services
-                      _buildServiceColumn(
-                        services.sublist(3, 6),
-                      ), // Right column services
+            Stack(
+              clipBehavior: Clip.none, 
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      width: 0.2,
+                      color: Colors.black.withOpacity(0.3),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
                     ],
                   ),
-                ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/tanker.png',
+                        width: 250,
+                        height: 120,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '1000 Liter',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Starts From  ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 13,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              Text(
+                                'Rs 2000',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 35), // ADDED: Space for half-overlapping button
+                    ],
+                  ),
+                ),
+                
+                Positioned(
+                  bottom: -25, // Position to overlap container
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: MouseRegion(
+                      onEnter: (_) => setState(() => _isBookHovered = true),
+                      onExit: (_) => setState(() => _isBookHovered = false),
+                      child: SizedBox(
+                        width: 240, // ADDED: Fixed width for button
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            // Color changes on hover
+                            backgroundColor: _isBookHovered
+                                ? Color.fromARGB(255, 100, 150, 102)
+                                : Color.fromARGB(255, 129, 183, 131),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            elevation: 3,
+                          ),
+                          child: Text(
+                            'Book Your Tanker',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15, 
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            
+            // MODIFIED: Spacing for the overlapping button
+            const SizedBox(height: 30),
+            
+            // MODIFIED: View Previous Bookings button with hover effect
+            Center(
+              child: MouseRegion(
+                onEnter: (_) => setState(() => _isViewHovered = true),
+                onExit: (_) => setState(() => _isViewHovered = false),
+                child: SizedBox(
+                  width: 240, // ADDED: Same fixed width as first button
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      // MODIFIED: Color changes on hover
+                      backgroundColor: _isViewHovered
+                          ? Color.fromARGB(255, 200, 201, 200)
+                          : Color.fromARGB(255, 226, 227, 226),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      // MODIFIED: Same padding as first button
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      elevation: 2,
+                    ),
+                    child: Text(
+                      'View Previous Bookings',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 15, // MODIFIED: Same font size as first button
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis, // ADDED: Prevent text overflow
+                      maxLines: 1, // ADDED: Keep text in single line
+                    ),
+                  ),
+                ),
               ),
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
+
+            const Divider(
+              color: Colors.grey,
+              height: 20,
+              thickness: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
 
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -389,7 +478,6 @@ final List<Map<String, dynamic>> services = [
                 ],
               ),
             ),
-            const SizedBox(height: 2),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(left: 16, right: 8),
@@ -401,7 +489,6 @@ final List<Map<String, dynamic>> services = [
                       child: _buildOfferCard(offer),
                     );
                   }).toList(),
-                  // See More
                   Padding(
                     padding: const EdgeInsets.only(right: 16),
                     child: GestureDetector(
@@ -419,19 +506,11 @@ final List<Map<String, dynamic>> services = [
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HotOffersScreen(),
-                        ),
-                      );
-                                            },
-                                  child: Image.asset('assets/home/see_more.png',
-                                  width: 40,
-                                  height: 40,), 
-              ),
+                            Image.asset(
+                              'assets/home/see_more.png',
+                              width: 40,
+                              height: 40,
+                            ),
                             SizedBox(height: 4),
                             Text(
                               'See More',
@@ -449,6 +528,7 @@ final List<Map<String, dynamic>> services = [
                 ],
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

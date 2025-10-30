@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:water_board_app/home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -233,7 +234,14 @@ class _LoginState extends State<Login> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                            },
                             child: _isLoading
                                 ? const SizedBox(
                                     height: 20,

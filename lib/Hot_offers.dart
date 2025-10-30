@@ -3,173 +3,174 @@ import 'package:flutter/material.dart';
 class HotOffersScreen extends StatelessWidget {
   const HotOffersScreen({super.key});
 
-  // All offers data
   final List<Map<String, dynamic>> allOffers = const [
     {
+      'logo': 'assets/cards/Mastercard-logo.png',
       'title': 'MasterCard Discount',
-      'subtitle': '15% OFF',
-      'description': '15% discount with mastercard',
-      'color': Color(0xFFEB001B),
-      'icon': Icons.credit_card,
+      'discount': '15% OFF',
+      'bgColor': Color(0xFFFFF3E0),
+      'mainDescription': '15% discount with Mastercard',
+      'secondaryDescription': 'Use Mastercard for your payments',
     },
     {
+      'logo': 'assets/cards/visa-logo.png',
       'title': 'VISA Offer',
-      'subtitle': '23% OFF',
-      'description': '',
-      'color': Color(0xFF1A1F71),
-      'icon': Icons.credit_card,
+      'discount': '23% OFF',
+      'bgColor': Color.fromARGB(255, 223, 227, 249),
+      'mainDescription': '23% discount on all VISA payments',
+      'secondaryDescription': 'Applicable on utility bills',
     },
     {
-      'title': 'JazzCash Cashback',
-      'subtitle': '10% CASHBACK',
-      'description': '10% cashback on bill payment',
-      'color': Color(0xFF00A651),
-      'icon': Icons.account_balance_wallet,
-    },
-    {
-      'title': 'EasyPaisa Offer',
-      'subtitle': 'FREE WAIVER',
-      'description': 'Free late fee waiver',
-      'color': Color(0xFF1DA1F2),
-      'icon': Icons.account_balance_wallet,
-    },
-    {
-      'title': 'Bank Alfalah',
-      'subtitle': '20% OFF',
-      'description': '20% discount on online payment',
-      'color': Color(0xFF0033A0),
-      'icon': Icons.account_balance,
-    },
-    {
+      'logo': 'assets/cards/hbl-logo.png',
       'title': 'HBL Payment Offer',
-      'subtitle': '15% OFF',
-      'description': '15% off with mobile banking',
-      'color': Color(0xFF0066B3),
-      'icon': Icons.account_balance,
+      'discount': '15% OFF',
+      'bgColor': Color.fromARGB(255, 203, 230, 206),
+      'mainDescription': '15% off with HBL Mobile Banking',
+      'secondaryDescription': 'Valid for first 3 payments',
     },
     {
+      'logo': 'assets/cards/tanker-booking-logo.jpg',
       'title': 'Tanker Booking Discount',
-      'subtitle': '20% OFF',
-      'description': '20% off first booking',
-      'color': Color(0xFF4CAF50),
-      'icon': Icons.local_shipping,
+      'discount': '20% OFF',
+      'bgColor': Color(0xFFE3F2FD),
+      'mainDescription': '20% off your first tanker booking',
+      'secondaryDescription': 'Limited-time offer',
     },
     {
-      'title': 'Online Bill Payment',
-      'subtitle': 'REWARD POINTS',
-      'description': 'Earn reward points on every payment',
-      'color': Color(0xFFFF9800),
-      'icon': Icons.receipt,
+      'logo': 'assets/cards/jazzcash-logo.png',
+      'title': 'JazzCash Cashback',
+      'discount': '10% Cashback',
+      'bgColor': Color.fromARGB(255, 243, 240, 146),
+      'mainDescription': 'Get 10% cashback on bill payment',
+      'secondaryDescription': 'Available for new users',
     },
     {
-      'title': 'Refer a Friend',
-      'subtitle': 'RS 200 CREDIT',
-      'description': 'Get RS 200 credit for each referral',
-      'color': Color(0xFF9C27B0),
-      'icon': Icons.share,
+      'logo': 'assets/cards/easypaisa-logo.png',
+      'title': 'EasyPaisa Offer',
+      'discount': 'Free Waiver',
+      'bgColor': Color.fromARGB(255, 169, 253, 200),
+      'mainDescription': 'Enjoy free late fee waiver',
+      'secondaryDescription': 'Only via Easypaisa payments',
     },
   ];
+
+  Widget _buildOfferCard(Map<String, dynamic> offer) {
+    return Container(
+      width: 320,
+      height: 110,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.12), 
+            blurRadius: 6,
+            offset: const Offset(2, 3), 
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Left side colored panel
+          Container(
+            width: 120,
+            decoration: BoxDecoration(
+              color: offer['bgColor'],
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  offer['logo'],
+                  height: 35,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  offer['discount'],
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Right side text content
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    offer['mainDescription'],
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    offer['secondaryDescription'],
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 11,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hot Offers'),
+        title: const Text(
+          'Hot Offers',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        // centerTitle: true,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios_new, size: 20),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.6,
-          ),
-          itemCount: allOffers.length,
-          itemBuilder: (context, index) {
-            return _buildOfferCard(allOffers[index]);
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOfferCard(Map<String, dynamic> offer) {
-    return Container(
-      decoration: BoxDecoration(
-        color: offer['color'],
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
+      backgroundColor: const Color(0xFFF9F9F9),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Icon(
-                    offer['icon'],
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-                Flexible(
-                  child: Text(
-                    offer['subtitle'],
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  offer['title'],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                  ),
-                ),
-                if (offer['description'].isNotEmpty)
-                  Text(
-                    offer['description'],
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-                  ),
-              ],
-            ),
+            const SizedBox(height: 8),
+            ...allOffers.map((offer) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Center(child: _buildOfferCard(offer)),
+              );
+            }).toList(),
+            const SizedBox(height: 12),
           ],
         ),
       ),
