@@ -42,7 +42,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
               child: Container(
-                // ✅ Gradient overlay (darker bottom-left → lighter top-right)
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(40),
@@ -52,9 +51,9 @@ class _LoginState extends State<Login> {
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
                     colors: [
-                      const Color.fromARGB(255, 9, 23, 62).withOpacity(0.1), // darker bottom-left
-                        const Color.fromARGB(0, 249, 247, 247).withOpacity(0.4),
-                    ],
+                          const Color.fromARGB(0,249,247,247).withOpacity(0.2),
+                          const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
+                        ],
                   ),
                 ),
                 child: Padding(

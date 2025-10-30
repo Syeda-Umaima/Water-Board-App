@@ -13,7 +13,7 @@ final List<Map<String, dynamic>> services = [
     {'image': 'assets/home/1.png', 'title': 'Tanker Booking', 'screen': (BuildContext context) => BookingScreen_one()}, 
     {'image': 'assets/home/3.png', 'title': 'Bills Payment &\nDuplicate Bill', 'screen': (BuildContext context) => HomeScreen()},
     {'image': 'assets/home/5.png', 'title': 'FAQs / Feedback', 'screen': (BuildContext context) => HomeScreen()}, 
-    {'image': 'assets/home/2.jpg', 'title': 'Report a Complaint', 'screen': (BuildContext context) => HomeScreen()}, 
+    {'image': 'assets/home/2.png', 'title': 'Report a Complaint', 'screen': (BuildContext context) => HomeScreen()}, 
     {'image': 'assets/home/4.png', 'title': 'New Connection', 'screen': (BuildContext context) => HomeScreen()}, 
     {'image': 'assets/home/6.png', 'title': 'ChatBot', 'screen': (BuildContext context) => HomeScreen()}, 
   ];
@@ -221,13 +221,8 @@ final List<Map<String, dynamic>> services = [
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
                         colors: [
-                          const Color.fromARGB(255, 9, 23, 62).withOpacity(0.1),
-                          const Color.fromARGB(
-                            0,
-                            249,
-                            247,
-                            247,
-                          ).withOpacity(0.4),
+                          const Color.fromARGB(0,249,247,247).withOpacity(0.2),
+                          const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
                         ],
                       ),
                     ),

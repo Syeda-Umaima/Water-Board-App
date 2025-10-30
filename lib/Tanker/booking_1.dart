@@ -206,9 +206,9 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                       gradient: LinearGradient(
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
-                        colors: [
-                          const Color.fromARGB(255, 9, 23, 62).withOpacity(0.1),
-                          const Color.fromARGB(0, 249, 247, 247).withOpacity(0.4),
+                       colors: [
+                          const Color.fromARGB(0,249,247,247).withOpacity(0.2),
+                          const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
                         ],
                       ),
                     ),
