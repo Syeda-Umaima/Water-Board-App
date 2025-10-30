@@ -130,15 +130,15 @@ class _BookingScreen_fiveState extends State<BookingScreen_five> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
                   Text('Booking Confirmed', style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.black45,
                     fontSize: 16,
                     fontWeight: FontWeight.w400
                   ),),
-                  SizedBox(height: 100,),
-                  Image(image: AssetImage('assets/tanker.png'), height: 70),
-                  SizedBox(height: 40,),
+                  SizedBox(height: 140,),
+                  Image(image: AssetImage('assets/tanker.png'), height: 80, width: 140,),
+                  SizedBox(height: 10,),
                   Divider(
                     color: Colors.grey,
                     height: 20,
