@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_board_app/Hot_offers.dart';
+import 'package:water_board_app/Tanker/booking_2.dart';
 
 class BookingScreen_one extends StatefulWidget {
   const BookingScreen_one({super.key});
@@ -9,14 +10,6 @@ class BookingScreen_one extends StatefulWidget {
 }
 
 class _BookingScreen_oneState extends State<BookingScreen_one> {
-  final List<Map<String, String>> services = [
-    {'image': 'assets/home/1.png', 'title': 'Tanker Booking'},
-    {'image': 'assets/home/3.png', 'title': 'Bills Payment &\nDuplicate Bill'},
-    {'image': 'assets/home/5.png', 'title': 'FAQs / Feedback'},
-    {'image': 'assets/home/2.jpg', 'title': 'Report a Complaint'},
-    {'image': 'assets/home/4.png', 'title': 'New Connection'},
-    {'image': 'assets/home/6.png', 'title': 'ChatBot'},
-  ];
 
   final List<Map<String, dynamic>> hotOffers = [
     {
@@ -56,42 +49,7 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
   // ADDED: Hover states for buttons
   bool _isBookHovered = false;
   bool _isViewHovered = false;
-
-  // Method to build single service item
-  Widget _buildServiceItem(String image, String title) {
-    return Column(
-      children: [
-        Image.asset(image, height: 40, width: 50, fit: BoxFit.cover),
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.black, fontSize: 12),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Helper method to build a column of services with spacing between items
-  Widget _buildServiceColumn(List<Map<String, String>> serviceList) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: List.generate(serviceList.length, (index) {
-        return Column(
-          children: [
-            _buildServiceItem(
-              serviceList[index]['image']!,
-              serviceList[index]['title']!,
-            ),
-            if (index < serviceList.length - 1) const SizedBox(height: 4),
-          ],
-        );
-      }),
-    );
-  }
-
+  
   // Helper method to build a single hot offer card
   Widget _buildOfferCard(Map<String, dynamic> offer) {
     return Container(
@@ -206,9 +164,9 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                       gradient: LinearGradient(
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
-                       colors: [
-                          const Color.fromARGB(0,249,247,247).withOpacity(0.2),
-                          const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
+                        colors: [
+                          const Color.fromARGB(0, 249, 247, 247).withOpacity(0.2),
+                          const Color.fromARGB(0, 249, 247, 247).withOpacity(0.5),
                         ],
                       ),
                     ),
@@ -219,45 +177,32 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end, 
                       children: [
-                        const Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Tanker Booking',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                            ),
-                            Text(
-                              'Syeda Umaima',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: IconButton(
-                            onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Notifications: 2 new alerts'),
-                                  backgroundColor: Colors.black,
-                                ),
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.notifications_outlined,
+                          padding: const EdgeInsets.only(bottom: 6.0),
+                          child: Text(
+                            'Tanker Booking',
+                            style: TextStyle(
                               color: Colors.white,
-                              size: 32,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
                             ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Notifications: 2 new alerts'),
+                                backgroundColor: Colors.black,
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.notifications_outlined,
+                            color: Colors.white,
+                            size: 32,
                           ),
                         ),
                       ],
@@ -265,7 +210,7 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                   ),
                 ),
                 Positioned(
-                  top: 25,
+                  top: 38,
                   left: 15,
                   child: Builder(
                     builder: (BuildContext context) {
@@ -368,7 +313,14 @@ class _BookingScreen_oneState extends State<BookingScreen_one> {
                       child: SizedBox(
                         width: 240, // ADDED: Fixed width for button
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingScreen_two(),
+                        ),
+                      );
+                          },
                           style: ElevatedButton.styleFrom(
                             // Color changes on hover
                             backgroundColor: _isBookHovered

@@ -61,7 +61,7 @@ final List<Map<String, dynamic>> services = [
   Widget _buildServiceItem(String image, String title, WidgetBuilder screenBuilder) {
     return Column(
       children: [
-        Image.asset(image, height: 40, width: 50, fit: BoxFit.cover),
+        Image.asset(image, height: 40, width: 50, fit: BoxFit.contain),
         // const SizedBox(height: 2),
         TextButton(
           onPressed: () {

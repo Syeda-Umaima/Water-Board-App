@@ -63,6 +63,7 @@ flutter:
   assets:
     - assets/
     - assets/animations/water_waves_2.json
+    - assets/animations/loading.gif
     - assets/home/
     - assets/cards/
     # - images/a_dot_burr.jpeg
