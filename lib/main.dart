@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:water_board_app/Tanker/booking_1.dart';
-import 'package:water_board_app/home.dart';
 import 'package:water_board_app/splash_screen.dart';
 
 void main() {
@@ -15,8 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const BookingScreen_one(),
-      // home: const HomeScreen(),
+      // home: const BookingScreen_one(),
+      home: const SplashScreen(),
     );
   }
 }

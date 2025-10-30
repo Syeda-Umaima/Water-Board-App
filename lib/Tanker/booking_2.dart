@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:water_board_app/Hot_offers.dart';
+import 'booking_3.dart'; 
+
 class BookingScreen_two extends StatefulWidget {
   const BookingScreen_two({super.key});
 
@@ -8,6 +10,20 @@ class BookingScreen_two extends StatefulWidget {
 }
 
 class _BookingScreen_twoState extends State<BookingScreen_two> {
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(const Duration(seconds: 5), () {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const BookingScreen_three()),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +49,7 @@ class _BookingScreen_twoState extends State<BookingScreen_two> {
                   ),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(40),
                         bottomRight: Radius.circular(40),
                       ),
@@ -41,16 +57,12 @@ class _BookingScreen_twoState extends State<BookingScreen_two> {
                         begin: Alignment.bottomLeft,
                         end: Alignment.topRight,
                         colors: [
-                          const Color.fromARGB(0,249,247,247).withOpacity(0.2),
-                          const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
+                          const Color.fromARGB(0, 249, 247, 247).withOpacity(0.2),
+                          const Color.fromARGB(0, 249, 247, 247).withOpacity(0.5),
                         ],
                       ),
                     ),
-                    padding: const EdgeInsets.only(
-                      left: 25.0,
-                      bottom: 20,
-                      right: 20,
-                    ),
+                    padding: const EdgeInsets.only(left: 25.0, bottom: 20, right: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -119,7 +131,6 @@ class _BookingScreen_twoState extends State<BookingScreen_two> {
               ],
             ),
             const SizedBox(height: 35),
-
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               height: MediaQuery.of(context).size.height * 0.45,
@@ -128,10 +139,7 @@ class _BookingScreen_twoState extends State<BookingScreen_two> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  width: 0.2,
-                  color: Colors.black.withOpacity(0.3),
-                ),
+                border: Border.all(width: 0.2, color: Colors.black.withOpacity(0.3)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
@@ -140,19 +148,21 @@ class _BookingScreen_twoState extends State<BookingScreen_two> {
                   ),
                 ],
               ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // mainAxisSize: MediaQuery.of(context).size.width,
-                  children: [
-                    // const SizedBox(height: 8),
-                    Image(image: AssetImage('assets/animations/loading.gif'), height: 130),
-                    SizedBox(height: 70,),
-                    Text('Fetching data from NADRA', style: TextStyle(color: Colors.black),)
-                  ],
-                ),
-              
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Image(
+                    image: AssetImage('assets/animations/loading.gif'),
+                    height: 130,
+                  ),
+                  const SizedBox(height: 70),
+                  const Text(
+                    'Fetching data from NADRA',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
             ),
-
           ],
         ),
       ),
