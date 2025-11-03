@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:water_board_app/Register/register_1.dart';
-import 'package:water_board_app/home.dart';
+import 'package:water_board_app/Register/otp_verify.dart';
+import 'package:water_board_app/Register/register_3.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
-
+class Register2 extends StatefulWidget {
+  const Register2({super.key});
   @override
-  State<Login> createState() => _LoginState();
+  State<Register2> createState() => _Register2State();
 }
+class _Register2State extends State<Register2> {
+  bool _resendOTP = true;
+  bool _isLoading = false; 
 
-class _LoginState extends State<Login> {
-  bool _obscureText = true;
-  bool _rememberMe = true;
-  bool _isLoading = false;
-  final TextEditingController _consumerController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
+  final TextEditingController _mobileController = TextEditingController();
+  final TextEditingController _cnicController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // ✅ Header background with gradient overlay
+          // Header Section
           Positioned(
             top: 0,
             left: 0,
@@ -52,9 +48,9 @@ class _LoginState extends State<Login> {
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
                     colors: [
-                          const Color.fromARGB(0,249,247,247).withOpacity(0.2),
-                          const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
-                        ],
+                      const Color.fromARGB(0,249,247,247).withOpacity(0.2),
+                      const Color.fromARGB(0,249,247,247,).withOpacity(0.5),
+                    ],
                   ),
                 ),
                 child: Padding(
@@ -64,7 +60,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        'Login',
+                        'New Consumer Reg',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -72,7 +68,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       Text(
-                        'Welcome back to the app',
+                        'Welcome to the app',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],
@@ -81,8 +77,7 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-
-          // ✅ Form Section
+          // Form Section
           Builder(
             builder: (context) {
               final height = MediaQuery.of(context).size.height;
@@ -96,7 +91,7 @@ class _LoginState extends State<Login> {
                   color: Colors.white,
                   child: Form(
                     key: _formKey,
-                    child: SingleChildScrollView( // ✅ Added to prevent overflow on small screens
+                    child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +116,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             child: TextFormField(
-                              controller: _consumerController,
+                              controller: _mobileController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 hintText: '0000000000',
@@ -135,28 +130,36 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           const SizedBox(height: 12),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Password',
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                ),
+                          // FIXED: Text wrapped automatically based on screen width
+                          RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
+                                height: 1.4,
                               ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  'Forgot Password?',
+                              children: [
+                                const TextSpan(text: 'If you dont have '),
+                                TextSpan(
+                                  text: 'Consumer Number ',
                                   style: TextStyle(
-                                    color: Colors.purpleAccent[700],
-                                    fontSize: 12,
+                                    color: const Color(0xFF1BB525),
+                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                              ),
-                            ],
+                                const TextSpan(text: 'then Go ahead with CNIC'),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'CNIC',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
                           ),
                           const SizedBox(height: 4),
                           Container(
@@ -169,22 +172,10 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             child: TextFormField(
-                              controller: _passwordController,
+                              controller: _cnicController,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    _obscureText
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                                hintText: '...........',
+                                hintText: '................',
                                 hintStyle: TextStyle(color: Colors.grey[500]),
                                 border: InputBorder.none,
                                 contentPadding: const EdgeInsets.symmetric(
@@ -192,32 +183,21 @@ class _LoginState extends State<Login> {
                                   horizontal: 16,
                                 ),
                               ),
-                              obscureText: _obscureText,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your password';
-                                }
-                                if (value.length < 6) {
-                                  return 'Password must be at least 6 characters';
-                                }
-                                return null;
-                              },
                             ),
                           ),
-                          const SizedBox(height: 5),
                           Row(
                             children: [
                               Checkbox(
-                                value: _rememberMe,
+                                value: _resendOTP,
                                 activeColor: Colors.purpleAccent[700],
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _rememberMe = value ?? false;
+                                    _resendOTP = value ?? false;
                                   });
                                 },
                               ),
                               Text(
-                                'Keep me signed in',
+                                'Select Submit to Proceed Next',
                                 style: TextStyle(
                                   color: Colors.grey[700],
                                   fontSize: 14,
@@ -228,8 +208,9 @@ class _LoginState extends State<Login> {
                           const SizedBox(height: 6),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF005FF6)
-,
+                              shadowColor: Colors.black,
+                              elevation: 8,
+                              backgroundColor: Color(0xFF005FF6),
                               minimumSize: const Size(double.infinity, 45),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -239,7 +220,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                          builder: (context) => Register3(),
                         ),
                       );
                             },
@@ -253,7 +234,7 @@ class _LoginState extends State<Login> {
                                     ),
                                   )
                                 : const Text(
-                                    'Login',
+                                    'Submit',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -261,86 +242,23 @@ class _LoginState extends State<Login> {
                                     ),
                                   ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 10),
                           ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey[300],
-                              minimumSize: const Size(double.infinity, 45),
+                      onPressed: () {
+                        // Navigate to Quick Complain Screen
+                      },
+                      style: ElevatedButton.styleFrom(
+                              shadowColor: Colors.black,
+                              elevation: 8,
+                        backgroundColor: Color(0xFF8DC96C)
+,
+                         minimumSize: const Size(double.infinity, 45),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Register(),
-                        ),
-                      );
-                            },
-                            child: _isLoading
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.blue,
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : Text(
-                                    'Register',
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Divider(
-                                  color: Colors.grey[400],
-                                  thickness: 1,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  'or',
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Divider(
-                                  color: Colors.grey[400],
-                                  thickness: 1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Center(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue[700]!),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.fingerprint,
-                                  color: Colors.blue[700],
-                                  size: 40,
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                          ),
+                      child: const Text('Quick Complain', style: TextStyle(fontSize: 16, color: Colors.white)),
+                    ),
                         ],
                       ),
                     ),
