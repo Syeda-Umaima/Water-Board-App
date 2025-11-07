@@ -6,43 +6,24 @@ class NotificationScreen extends StatefulWidget {
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
 
-  // Static method to show the Notification overlay (dialog)
-  static void show(BuildContext context) {
-    // showGeneralDialog = a built-in Flutter function that creates custom animated dialogs which can slide, fade, scale, etc.
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: true, // allows closing by tapping outside
-      barrierLabel: 'Notifications', // accessibility label
-      barrierColor: Colors.black54, // semi-transparent black background
-      transitionDuration: const Duration(milliseconds: 300), // animation speed
-
-      // pageBuilder = builds the content of the dialog (our custom screen)
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return const NotificationScreen(); // show this widget as the overlay
-      },
-
-      // transitionBuilder = defines how the dialog will animate in/out
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        // SlideTransition makes it slide from top (y = -1) to center (y = 0)
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0, -1), // start above screen
-            end: Offset.zero, // final position (normal)
-          ).animate(
-            CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOut, // smooth easing curve
-            ),
-          ),
-          child: child, // the dialog widget itself
-        );
-      },
-    );
+  //Method to show Notification overlay
+  static void show(BuildContext context){
+    showGeneralDialog(context: context, barrierDismissible: true, barrierLabel: 'Notifications', barrierColor: Colors.black54,transitionDuration: const Duration(microseconds: 300),
+    pageBuilder: (context, animation, secondaryAnimation) => const NotificationScreen(),
+    transitionBuilder: (context, animation, secondaryAnimation, child) {
+      return SlideTransition(
+        position: Tween<Offset>(begin: const Offset(0, -1), end: Offset.zero).animate(
+          CurvedAnimation(parent: animation, curve: Curves.easeInOut)
+        ),
+        child: child,
+      );
+    },);
   }
 }
 
+
 class _NotificationScreenState extends State<NotificationScreen> {
-  // List of notifications 
+
   final List<Map<String, dynamic>> notifications = [
     {
       'title': 'Tanker booking confirmation (with ID)',
@@ -75,50 +56,47 @@ class _NotificationScreenState extends State<NotificationScreen> {
       'textColor': Colors.black87,
     },
   ];
-
+  
   @override
   Widget build(BuildContext context) {
-    // Screen height/width for responsive layout
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Align(
-      alignment: Alignment.topCenter, // position dialog at the top center
+      alignment: Alignment.topCenter,
       child: Material(
-        color: Colors.transparent, // transparent background for overlay
+        color: Colors.transparent,
         child: Container(
-          width: screenWidth, // full width
-          height: screenHeight * 0.9, // take 90% of screen height
-          margin: EdgeInsets.only(top: screenHeight * 0.1), // 10% top gap
+          width: screenWidth,
+          height: screenHeight * 0.9,
+          margin: EdgeInsets.only(top: screenHeight * 0.1),
+
           decoration: BoxDecoration(
-            color: Colors.white, // main background
+            color: Colors.white,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2), // subtle shadow
+                color: Colors.black.withOpacity(0.2),
                 blurRadius: 10,
-                offset: const Offset(0, -2),
-              ),
-            ],
+                offset: const Offset(0, -2)
+            )]
           ),
-
-          // Main column layout (Header + List + Footer)
+          
+          //Main Column
           child: Column(
             children: [
-              // 🔹 HEADER SECTION
               Container(
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 decoration: const BoxDecoration(
-                  color: Color(0xFF5B4FB8), // purple header color
+                  color: Color(0xFF5B4FB8),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
+                    topRight: Radius.circular(20)
+                  )
                 ),
                 child: Row(
                   children: [
@@ -133,14 +111,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                     const SizedBox(width: 10),
 
-                    const Text(
-                      'All Notifications',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    const Text('All Notifications',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600
+                    ),)
                   ],
                 ),
               ),
