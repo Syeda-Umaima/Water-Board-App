@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:water_board_app/Hot_offers.dart';
+import 'package:water_board_app/drawer.dart';
 import 'Tanker/booking_1.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -290,7 +291,15 @@ final List<Map<String, dynamic>> services = [
                           size: 28,
                         ),
                         onPressed: () {
-                          Scaffold.of(context).openDrawer();
+        AppDrawer.show(context); 
+      
+                        //    Navigator.push(
+                        // context,
+                        // MaterialPageRoute(
+                        //   builder: (context) => AppDrawer(),
+                        // ),
+                        // );
+                          // Scaffold.of(context).openDrawer();
                         },
                       );
                     },

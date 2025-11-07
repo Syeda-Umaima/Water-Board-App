@@ -64,6 +64,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/drawer/
+    # - assets/profile_pic.jpg
     - assets/animations/water_waves_2.json
     - assets/animations/loading.gif
     - assets/animations/success.gif
