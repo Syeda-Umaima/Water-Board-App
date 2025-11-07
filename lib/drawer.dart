@@ -91,7 +91,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         border: Border.all(color: Colors.white, width: 2),
                       ),
                       child: const CircleAvatar(
-                        backgroundImage: AssetImage('assets/profile_pic.jpg'),
+                        backgroundImage: AssetImage('assets/drawer/profile_pic.jpg'),
                         backgroundColor: Colors.grey,
                       ),
                     ),
