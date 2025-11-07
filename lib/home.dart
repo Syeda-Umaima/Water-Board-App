@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:water_board_app/Hot_offers.dart';
 import 'package:water_board_app/drawer.dart';
+import 'notification.dart';
 import 'Tanker/booking_1.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -261,12 +262,13 @@ final List<Map<String, dynamic>> services = [
                           padding: const EdgeInsets.only(bottom: 10),
                           child: IconButton(
                             onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Notifications: 2 new alerts'),
-                                  backgroundColor: Colors.black,
-                                ),
-                              );
+                              NotificationScreen.show(context);
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   const SnackBar(
+                              //     content: Text('Notifications: 2 new alerts'),
+                              //     backgroundColor: Colors.black,
+                              //   ),
+                              // );
                             },
                             icon: const Icon(
                               Icons.notifications_outlined,
